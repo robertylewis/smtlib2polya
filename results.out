@@ -29,7 +29,7 @@ Conclusion: False
 Comment: [':source | KeYmaera example: binary_driver-2007-10-09, node 3668 For more info see: No further information available.|', ':smt-lib-version 2.0']
 
 Refuted hypotheses.
-Ran in 0.348 seconds
+Ran in 0.24 seconds
 
 Hypothesis: dvuscore2dollarskuscore0 >= -1*(b + l)
 Hypothesis: dvuscore2dollarskuscore0 <= -1*(b + -1*u)
@@ -46,5 +46,207 @@ Conclusion: False
 Comment: [':status unsat', ':source | KeYmaera example: controllability-lemma-disturbed, node 10924 For more info see: @see "Andre Platzer and Jan-David Quesel. European Train Control System: A case study in formal verification. In Karin Breitman and Ana Cavalcanti, editors, 11th International Conference on Formal Engineering Methods, ICFEM, Rio de Janeiro, Brasil, Proceedings, volume 5885 of LNCS, pages 246-265. Springer, 2009."|', ':smt-lib-version 2.0']
 
 Refuted hypotheses.
-Ran in 0.391 seconds
+Ran in 0.782 seconds
 
+Hypothesis: e1**2 + e2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: d1**2 + d2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: (x1 + -1*y1 + d1 * luscore0dollarskuscore3)**2 + (x2 + -1*y2 + d2 * luscore0dollarskuscore3)**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: d1**2 * luscore0dollarskuscore3**2 + d2**2 * luscore0dollarskuscore3**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: ruscore1dollarskuscore3 >= 0
+Hypothesis: d1**2 + d2**2 == e1**2 + e2**2
+Hypothesis: luscore0dollarskuscore3 > 0
+Hypothesis: x1 + d1 * luscore0dollarskuscore3 == y1 + e1 * luscore0dollarskuscore3
+Hypothesis: x2 + d2 * luscore0dollarskuscore3 == y2 + e2 * luscore0dollarskuscore3
+Hypothesis: luscore0dollarskuscore3 < 0
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: FTRM-agree-mutual2-all, node 3451 For more info see: @see "Andre Platzer and Edmund M.0 Clarke.0 Formal verification of curved flight collision avoidance maneuvers: A case study.0 In Ana Cavalcanti and Dennis Dams, editors, 16th International Symposium on Formal Methods, FM, Eindhoven, Netherlands, Proceedings, volume 5850 of LNCS, pages 547-562.0 Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.0 seconds
+
+Hypothesis: muscore1dollarskuscore0 <= zuscore1dollarskuscore0
+Hypothesis: duscore1dollarskuscore0**2 + -1*vuscore1dollarskuscore0**2 >= -2 * b * (muscore1dollarskuscore0 + -1*zuscore1dollarskuscore0)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: duscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * b * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: ep > 0
+Hypothesis: b > 0
+Hypothesis: amax > 0
+Hypothesis: d >= 0
+Hypothesis: duscore1dollarskuscore0 < vuscore1dollarskuscore0
+Conclusion: False
+Comment: [':source | KeYmaera example: binary_driver-2007-10-09, node 3668 For more info see: No further information available.|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.234 seconds
+
+Hypothesis: dvuscore2dollarskuscore0 >= -1*(b + l)
+Hypothesis: dvuscore2dollarskuscore0 <= -1*(b + -1*u)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * (b + -1*u) * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: d >= 0
+Hypothesis: b > u
+Hypothesis: u >= 0
+Hypothesis: l >= 0
+Hypothesis: m >= z
+Hypothesis: dvuscore2dollarskuscore0 * vuscore1dollarskuscore0 > -1 * vuscore1dollarskuscore0 * (b + -1*u)
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: controllability-lemma-disturbed, node 10924 For more info see: @see "Andre Platzer and Jan-David Quesel. European Train Control System: A case study in formal verification. In Karin Breitman and Ana Cavalcanti, editors, 11th International Conference on Formal Engineering Methods, ICFEM, Rio de Janeiro, Brasil, Proceedings, volume 5885 of LNCS, pages 246-265. Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.763 seconds
+
+Hypothesis: e1**2 + e2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: d1**2 + d2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: (x1 + -1*y1 + d1 * luscore0dollarskuscore3)**2 + (x2 + -1*y2 + d2 * luscore0dollarskuscore3)**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: d1**2 * luscore0dollarskuscore3**2 + d2**2 * luscore0dollarskuscore3**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: ruscore1dollarskuscore3 >= 0
+Hypothesis: d1**2 + d2**2 == e1**2 + e2**2
+Hypothesis: luscore0dollarskuscore3 > 0
+Hypothesis: x1 + d1 * luscore0dollarskuscore3 == y1 + e1 * luscore0dollarskuscore3
+Hypothesis: x2 + d2 * luscore0dollarskuscore3 == y2 + e2 * luscore0dollarskuscore3
+Hypothesis: luscore0dollarskuscore3 < 0
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: FTRM-agree-mutual2-all, node 3451 For more info see: @see "Andre Platzer and Edmund M.0 Clarke.0 Formal verification of curved flight collision avoidance maneuvers: A case study.0 In Ana Cavalcanti and Dennis Dams, editors, 16th International Symposium on Formal Methods, FM, Eindhoven, Netherlands, Proceedings, volume 5850 of LNCS, pages 547-562.0 Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.0 seconds
+
+Hypothesis: muscore1dollarskuscore0 <= zuscore1dollarskuscore0
+Hypothesis: duscore1dollarskuscore0**2 + -1*vuscore1dollarskuscore0**2 >= -2 * b * (muscore1dollarskuscore0 + -1*zuscore1dollarskuscore0)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: duscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * b * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: ep > 0
+Hypothesis: b > 0
+Hypothesis: amax > 0
+Hypothesis: d >= 0
+Hypothesis: duscore1dollarskuscore0 < vuscore1dollarskuscore0
+Conclusion: False
+Comment: [':source | KeYmaera example: binary_driver-2007-10-09, node 3668 For more info see: No further information available.|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.24 seconds
+
+Hypothesis: dvuscore2dollarskuscore0 >= -1*(b + l)
+Hypothesis: dvuscore2dollarskuscore0 <= -1*(b + -1*u)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * (b + -1*u) * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: d >= 0
+Hypothesis: b > u
+Hypothesis: u >= 0
+Hypothesis: l >= 0
+Hypothesis: m >= z
+Hypothesis: dvuscore2dollarskuscore0 * vuscore1dollarskuscore0 > -1 * vuscore1dollarskuscore0 * (b + -1*u)
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: controllability-lemma-disturbed, node 10924 For more info see: @see "Andre Platzer and Jan-David Quesel. European Train Control System: A case study in formal verification. In Karin Breitman and Ana Cavalcanti, editors, 11th International Conference on Formal Engineering Methods, ICFEM, Rio de Janeiro, Brasil, Proceedings, volume 5885 of LNCS, pages 246-265. Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.753 seconds
+
+Hypothesis: e1**2 + e2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: d1**2 + d2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: (x1 + -1*y1 + d1 * luscore0dollarskuscore3)**2 + (x2 + -1*y2 + d2 * luscore0dollarskuscore3)**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: d1**2 * luscore0dollarskuscore3**2 + d2**2 * luscore0dollarskuscore3**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: ruscore1dollarskuscore3 >= 0
+Hypothesis: d1**2 + d2**2 == e1**2 + e2**2
+Hypothesis: luscore0dollarskuscore3 > 0
+Hypothesis: x1 + d1 * luscore0dollarskuscore3 == y1 + e1 * luscore0dollarskuscore3
+Hypothesis: x2 + d2 * luscore0dollarskuscore3 == y2 + e2 * luscore0dollarskuscore3
+Hypothesis: luscore0dollarskuscore3 < 0
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: FTRM-agree-mutual2-all, node 3451 For more info see: @see "Andre Platzer and Edmund M.0 Clarke.0 Formal verification of curved flight collision avoidance maneuvers: A case study.0 In Ana Cavalcanti and Dennis Dams, editors, 16th International Symposium on Formal Methods, FM, Eindhoven, Netherlands, Proceedings, volume 5850 of LNCS, pages 547-562.0 Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.0 seconds
+
+Hypothesis: muscore1dollarskuscore0 <= zuscore1dollarskuscore0
+Hypothesis: duscore1dollarskuscore0**2 + -1*vuscore1dollarskuscore0**2 >= -2 * b * (muscore1dollarskuscore0 + -1*zuscore1dollarskuscore0)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: duscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * b * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: ep > 0
+Hypothesis: b > 0
+Hypothesis: amax > 0
+Hypothesis: d >= 0
+Hypothesis: duscore1dollarskuscore0 < vuscore1dollarskuscore0
+Conclusion: False
+Comment: [':source | KeYmaera example: binary_driver-2007-10-09, node 3668 For more info see: No further information available.|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.218 seconds
+
+Hypothesis: dvuscore2dollarskuscore0 >= -1*(b + l)
+Hypothesis: dvuscore2dollarskuscore0 <= -1*(b + -1*u)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * (b + -1*u) * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: d >= 0
+Hypothesis: b > u
+Hypothesis: u >= 0
+Hypothesis: l >= 0
+Hypothesis: m >= z
+Hypothesis: dvuscore2dollarskuscore0 * vuscore1dollarskuscore0 > -1 * vuscore1dollarskuscore0 * (b + -1*u)
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: controllability-lemma-disturbed, node 10924 For more info see: @see "Andre Platzer and Jan-David Quesel. European Train Control System: A case study in formal verification. In Karin Breitman and Ana Cavalcanti, editors, 11th International Conference on Formal Engineering Methods, ICFEM, Rio de Janeiro, Brasil, Proceedings, volume 5885 of LNCS, pages 246-265. Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.742 seconds
+
+Hypothesis: e1**2 + e2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: d1**2 + d2**2 == omuscore1dollarskuscore3**2 * ruscore1dollarskuscore3**2
+Hypothesis: (x1 + -1*y1 + d1 * luscore0dollarskuscore3)**2 + (x2 + -1*y2 + d2 * luscore0dollarskuscore3)**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: d1**2 * luscore0dollarskuscore3**2 + d2**2 * luscore0dollarskuscore3**2 == 3*ruscore1dollarskuscore3**2
+Hypothesis: ruscore1dollarskuscore3 >= 0
+Hypothesis: d1**2 + d2**2 == e1**2 + e2**2
+Hypothesis: luscore0dollarskuscore3 > 0
+Hypothesis: x1 + d1 * luscore0dollarskuscore3 == y1 + e1 * luscore0dollarskuscore3
+Hypothesis: x2 + d2 * luscore0dollarskuscore3 == y2 + e2 * luscore0dollarskuscore3
+Hypothesis: luscore0dollarskuscore3 < 0
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: FTRM-agree-mutual2-all, node 3451 For more info see: @see "Andre Platzer and Edmund M.0 Clarke.0 Formal verification of curved flight collision avoidance maneuvers: A case study.0 In Ana Cavalcanti and Dennis Dams, editors, 16th International Symposium on Formal Methods, FM, Eindhoven, Netherlands, Proceedings, volume 5850 of LNCS, pages 547-562.0 Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.0 seconds
+
+Hypothesis: muscore1dollarskuscore0 <= zuscore1dollarskuscore0
+Hypothesis: duscore1dollarskuscore0**2 + -1*vuscore1dollarskuscore0**2 >= -2 * b * (muscore1dollarskuscore0 + -1*zuscore1dollarskuscore0)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: duscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * b * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: ep > 0
+Hypothesis: b > 0
+Hypothesis: amax > 0
+Hypothesis: d >= 0
+Hypothesis: duscore1dollarskuscore0 < vuscore1dollarskuscore0
+Conclusion: False
+Comment: [':source | KeYmaera example: binary_driver-2007-10-09, node 3668 For more info see: No further information available.|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.218 seconds
+
+Hypothesis: dvuscore2dollarskuscore0 >= -1*(b + l)
+Hypothesis: dvuscore2dollarskuscore0 <= -1*(b + -1*u)
+Hypothesis: vuscore1dollarskuscore0 >= 0
+Hypothesis: d**2 + -1*v**2 >= -2 * (b + -1*u) * (m + -1*z)
+Hypothesis: v >= 0
+Hypothesis: d >= 0
+Hypothesis: b > u
+Hypothesis: u >= 0
+Hypothesis: l >= 0
+Hypothesis: m >= z
+Hypothesis: dvuscore2dollarskuscore0 * vuscore1dollarskuscore0 > -1 * vuscore1dollarskuscore0 * (b + -1*u)
+Conclusion: False
+Comment: [':status unsat', ':source | KeYmaera example: controllability-lemma-disturbed, node 10924 For more info see: @see "Andre Platzer and Jan-David Quesel. European Train Control System: A case study in formal verification. In Karin Breitman and Ana Cavalcanti, editors, 11th International Conference on Formal Engineering Methods, ICFEM, Rio de Janeiro, Brasil, Proceedings, volume 5885 of LNCS, pages 246-265. Springer, 2009."|', ':smt-lib-version 2.0']
+
+Refuted hypotheses.
+Ran in 0.737 seconds
+
+BAD: None
+BAD: None

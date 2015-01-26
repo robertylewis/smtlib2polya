@@ -73,7 +73,7 @@
       <file leaf-file-name="topolya.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/topolya.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="16" selection-start="3231" selection-end="3231" vertical-scroll-proportion="0.58395845" vertical-offset="368" max-vertical-offset="2565">
+            <state line="15" column="32" selection-start="486" selection-end="486" vertical-scroll-proportion="0.074437395" vertical-offset="96" max-vertical-offset="2565">
               <folding>
                 <element signature="e#575#618#0" expanded="true" />
               </folding>
@@ -194,6 +194,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../polya" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -335,7 +336,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1597" y="-3" width="1086" height="1927" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -386,13 +387,6 @@
           <folding>
             <element signature="e#784#793#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parser/ddsmtparser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="726" column="35" selection-start="21525" selection-end="21525" vertical-scroll-proportion="-5.9259257" vertical-offset="10730" max-vertical-offset="28830">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -452,9 +446,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/parser/ddsmtparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="726" column="35" selection-start="21525" selection-end="21525" vertical-scroll-proportion="-5.9259257" vertical-offset="10730" max-vertical-offset="28830">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/topolya.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="16" selection-start="3231" selection-end="3231" vertical-scroll-proportion="0.58395845" vertical-offset="368" max-vertical-offset="2565">
+        <state line="15" column="32" selection-start="486" selection-end="486" vertical-scroll-proportion="0.074437395" vertical-offset="96" max-vertical-offset="2565">
           <folding>
             <element signature="e#575#618#0" expanded="true" />
           </folding>

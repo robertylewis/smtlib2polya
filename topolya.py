@@ -42,6 +42,7 @@ def translate_smt_node(cmds):
         "abs": lambda x: abs(x),
         "+": lambda x, y: x + y,
         "div": lambda x, y: x/y,
+        "/": lambda x, y: x/y,
         "*": lambda x, y: x*y,
         "neg": lambda x: -x,
         "-": lambda x, y: x-y
@@ -75,6 +76,7 @@ def translate_smt_node(cmds):
 
     def translate_formula(fmla):
         if fmla.kind == 'not':
+            print fmla.children[0]
             return polya.Not(translate_formula(fmla.children[0]))
         elif fmla.kind == 'and':
             return polya.And(*[translate_formula(c) for c in fmla.children])
@@ -88,9 +90,19 @@ def translate_smt_node(cmds):
         elif fmla.kind == 'ite':
             raise Exception('dont understand boolean ite')
         elif fmla.kind == 'exists':
-            pass
+        	vars = []
+        	for c in fmla.svars:
+        		if str(c.sort) != 'Real':
+        			raise Exception('Quantifying over non-real variables')
+        		vars.append(polya.Var(str(c)))
+        	return polya.main.formulas.Exist(set(vars), translate_formula(fmla.children[0]))
         elif fmla.kind == 'forall':
-            pass
+        	vars = []
+        	for c in fmla.svars:
+        		if str(c.sort) != 'Real':
+        			raise Exception('Quantifying over non-real variables')
+        		vars.append(polya.Var(str(c)))
+        	return polya.main.formulas.Univ(set(vars), translate_formula(fmla.children[0]))
         elif fmla.kind in smt_to_polya_comps:
             return translate_comparison(fmla)
         else:
@@ -123,7 +135,13 @@ def translate_smt_node(cmds):
     def make_assertion(a):
         #print 'make_assertion:', a
         #print a[0]
-        clauses = polya.main.formulas.cnf(translate_formula(a[0]))
+        fmla = translate_formula(a[0])
+        print 'in make assertion'
+        print 'fmla:', fmla
+        fmla1 = polya.main.formulas.pnf(fmla)
+        print 'to'
+        print fmla1
+        quit()
 
         # TODO: DNF translation, right now assume this is all ands
         if any(len(l) != 1 for l in clauses):
