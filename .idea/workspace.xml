@@ -26,10 +26,17 @@
       <file leaf-file-name="ddsmt.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ddsmt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="638" column="20" selection-start="25124" selection-end="25124" vertical-scroll-proportion="-42.51852" vertical-offset="8422" max-vertical-offset="10425">
-              <folding>
-                <element signature="e#784#793#0" expanded="true" />
-              </folding>
+            <state line="659" column="17" selection-start="26017" selection-end="26017" vertical-scroll-proportion="-39.77778" vertical-offset="8646" max-vertical-offset="10335">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dccs-example-node3895.smt2" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dccs-example-node3895.smt2">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="416" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -37,7 +44,7 @@
       <file leaf-file-name="ddsmtparser.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parser/ddsmtparser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="726" column="35" selection-start="21525" selection-end="21525" vertical-scroll-proportion="-5.9259257" vertical-offset="10730" max-vertical-offset="28830">
+            <state line="732" column="27" selection-start="21852" selection-end="21852" vertical-scroll-proportion="598.55554" vertical-offset="27141" max-vertical-offset="28830">
               <folding />
             </state>
           </provider>
@@ -46,7 +53,7 @@
       <file leaf-file-name="results.out" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/results.out">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
+            <state line="34" column="17" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1335">
               <folding />
             </state>
           </provider>
@@ -55,7 +62,7 @@
       <file leaf-file-name="intersection-example-onelane.proof-node10293.smt2" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/intersection-example-onelane.proof-node10293.smt2">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="41" selection-start="887" selection-end="887" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+            <state line="19" column="0" selection-start="2018" selection-end="2018" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
               <folding />
             </state>
           </provider>
@@ -64,16 +71,16 @@
       <file leaf-file-name="smtparser.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parser/smtparser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="301" column="33" selection-start="10039" selection-end="10039" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12345">
+            <state line="313" column="34" selection-start="10425" selection-end="10425" vertical-scroll-proportion="-21.962963" vertical-offset="4087" max-vertical-offset="12345">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="topolya.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="topolya.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/topolya.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="32" selection-start="486" selection-end="486" vertical-scroll-proportion="0.074437395" vertical-offset="96" max-vertical-offset="2565">
+            <state line="82" column="57" selection-start="2760" selection-end="2760" vertical-scroll-proportion="-35.555557" vertical-offset="270" max-vertical-offset="3180">
               <folding>
                 <element signature="e#575#618#0" expanded="true" />
               </folding>
@@ -81,10 +88,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run.sh" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="fmla_test.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fmla_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run.sh" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/run.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="12" selection-start="34" selection-end="34" vertical-scroll-proportion="-1.2" vertical-offset="0" max-vertical-offset="150">
+            <state line="16" column="25" selection-start="417" selection-end="417" vertical-scroll-proportion="0.14192785" vertical-offset="0" max-vertical-offset="1691">
               <folding />
             </state>
           </provider>
@@ -101,17 +119,17 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/controllability-lemma-disturbed-node10924.smt2" />
-        <option value="$PROJECT_DIR$/ddsmt.py" />
-        <option value="$PROJECT_DIR$/parser/ddsmtparser.py" />
-        <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/FTRM-agree-mutual2-all-node3451.smt2" />
-        <option value="$PROJECT_DIR$/parser/smtparser.py" />
         <option value="$PROJECT_DIR$/binary_driver-2007-10-09-node3668.smt2" />
-        <option value="$PROJECT_DIR$/dccs-example-node3895.smt2" />
         <option value="$PROJECT_DIR$/intersection-example-onelane.proof-node10293.smt2" />
         <option value="$PROJECT_DIR$/intersection-example-onelane.proof-node41730.smt2" />
+        <option value="$PROJECT_DIR$/dccs-example-node3895.smt2" />
         <option value="$PROJECT_DIR$/results.out" />
+        <option value="$PROJECT_DIR$/parser/smtparser.py" />
+        <option value="$PROJECT_DIR$/parser/ddsmtparser.py" />
+        <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/topolya.py" />
+        <option value="$PROJECT_DIR$/ddsmt.py" />
       </list>
     </option>
   </component>
@@ -147,7 +165,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,6 +203,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -336,18 +354,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1597" y="-3" width="1086" height="1927" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20207743" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22001888" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -374,91 +392,141 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/controllability-lemma-disturbed-node10924.smt2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="9" selection-start="9" selection-end="9" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1771">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ddsmt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="638" column="20" selection-start="25124" selection-end="25124" vertical-scroll-proportion="-42.51852" vertical-offset="8422" max-vertical-offset="10425">
-          <folding>
-            <element signature="e#784#793#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/FTRM-agree-mutual2-all-node3451.smt2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="1157" selection-start="1979" selection-end="1979" vertical-scroll-proportion="-8.333333" vertical-offset="0" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dccs-example-node3895.smt2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="11" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/intersection-example-onelane.proof-node41730.smt2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="47" selection-start="643" selection-end="643" vertical-scroll-proportion="-2.142857" vertical-offset="0" max-vertical-offset="375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/binary_driver-2007-10-09-node3668.smt2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="469" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.120206065" vertical-offset="0" max-vertical-offset="1747">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="34" selection-end="34" vertical-scroll-proportion="-1.2" vertical-offset="0" max-vertical-offset="150">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/results.out">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1760">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/intersection-example-onelane.proof-node10293.smt2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="41" selection-start="887" selection-end="887" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parser/smtparser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="301" column="33" selection-start="10039" selection-end="10039" vertical-scroll-proportion="0.0" vertical-offset="3614" max-vertical-offset="12345">
+        <state line="638" column="20" selection-start="25124" selection-end="25124" vertical-scroll-proportion="0.0" vertical-offset="8422" max-vertical-offset="10425">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/parser/ddsmtparser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="726" column="35" selection-start="21525" selection-end="21525" vertical-scroll-proportion="-5.9259257" vertical-offset="10730" max-vertical-offset="28830">
+        <state line="726" column="35" selection-start="21525" selection-end="21525" vertical-scroll-proportion="0.0" vertical-offset="10730" max-vertical-offset="28830">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/results.out">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/intersection-example-onelane.proof-node10293.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="41" selection-start="887" selection-end="887" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parser/smtparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="301" column="33" selection-start="10039" selection-end="10039" vertical-scroll-proportion="0.0" vertical-offset="4515" max-vertical-offset="12360">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/topolya.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="32" selection-start="486" selection-end="486" vertical-scroll-proportion="0.074437395" vertical-offset="96" max-vertical-offset="2565">
+        <state line="15" column="32" selection-start="486" selection-end="486" vertical-scroll-proportion="0.0" vertical-offset="96" max-vertical-offset="2565">
           <folding>
             <element signature="e#575#618#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="12" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="150">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllability-lemma-disturbed-node10924.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="9" selection-start="9" selection-end="9" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1771" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FTRM-agree-mutual2-all-node3451.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="1157" selection-start="1979" selection-end="1979" vertical-scroll-proportion="-8.333333" vertical-offset="0" max-vertical-offset="360" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/intersection-example-onelane.proof-node41730.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="47" selection-start="643" selection-end="643" vertical-scroll-proportion="-2.142857" vertical-offset="0" max-vertical-offset="375" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binary_driver-2007-10-09-node3668.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="469" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.120206065" vertical-offset="0" max-vertical-offset="1747" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fmla_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1760">
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/intersection-example-onelane.proof-node10293.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="2018" selection-end="2018" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dccs-example-node3895.smt2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="416" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parser/smtparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="313" column="34" selection-start="10425" selection-end="10425" vertical-scroll-proportion="-21.962963" vertical-offset="4087" max-vertical-offset="12345">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parser/ddsmtparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="732" column="27" selection-start="21852" selection-end="21852" vertical-scroll-proportion="598.55554" vertical-offset="27141" max-vertical-offset="28830">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/results.out">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="17" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/topolya.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="57" selection-start="2760" selection-end="2760" vertical-scroll-proportion="-35.555557" vertical-offset="270" max-vertical-offset="3180">
+          <folding>
+            <element signature="e#575#618#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ddsmt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="659" column="17" selection-start="26017" selection-end="26017" vertical-scroll-proportion="-39.77778" vertical-offset="8646" max-vertical-offset="10335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="25" selection-start="417" selection-end="417" vertical-scroll-proportion="0.14192785" vertical-offset="0" max-vertical-offset="1691">
+          <folding />
         </state>
       </provider>
     </entry>

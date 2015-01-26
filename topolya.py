@@ -37,20 +37,20 @@ def translate_smt_node(cmds):
         "=": lambda x, y: x == y
     }
     smt_to_polya_ops = {
-        "distinct": lambda x, y: x != y,
+        "distinct": lambda l: l[0] != l[1],
 
-        "abs": lambda x: abs(x),
-        "+": lambda x, y: x + y,
-        "div": lambda x, y: x/y,
-        "/": lambda x, y: x/y,
-        "*": lambda x, y: x*y,
-        "neg": lambda x: -x,
-        "-": lambda x, y: x-y
+        "abs": lambda l: abs(l[0]),
+        "+": lambda l: reduce(lambda x, y: x + y, l),
+        "div": lambda l: l[0]/l[1],
+        "/": lambda l: l[0]/l[1],
+        "*": lambda l: reduce(lambda x, y: x*y, l),
+        "neg": lambda l: -l[0],
+        "-": lambda l: l[0] - l[1]
     }
 
     def translate_term(term):
         if term.kind in smt_to_polya_ops:
-            return smt_to_polya_ops[term.kind](*[translate_term(c) for c in term.children])
+            return smt_to_polya_ops[term.kind]([translate_term(c) for c in term.children])
         elif term.kind == '<const dec>' or term.kind == '<const num>':
             if str(int(float(str(term)))) == str(float(str(term))):
                 return int(float(str(term)))
@@ -76,11 +76,11 @@ def translate_smt_node(cmds):
 
     def translate_formula(fmla):
         if fmla.kind == 'not':
-            print fmla.children[0]
             return polya.Not(translate_formula(fmla.children[0]))
         elif fmla.kind == 'and':
             return polya.And(*[translate_formula(c) for c in fmla.children])
         elif fmla.kind == 'or':
+            print 'or from', [str(c)+" of type " + c.kind for c in fmla.children]
             return polya.Or(*[translate_formula(c) for c in fmla.children])
         elif fmla.kind == '=>':
             return polya.Implies(translate_formula(fmla.children[0]), translate_formula(fmla.children[1]))
@@ -90,19 +90,19 @@ def translate_smt_node(cmds):
         elif fmla.kind == 'ite':
             raise Exception('dont understand boolean ite')
         elif fmla.kind == 'exists':
-        	vars = []
-        	for c in fmla.svars:
-        		if str(c.sort) != 'Real':
-        			raise Exception('Quantifying over non-real variables')
-        		vars.append(polya.Var(str(c)))
-        	return polya.main.formulas.Exist(set(vars), translate_formula(fmla.children[0]))
+            vars1 = []
+            for c in fmla.svars:
+                if str(c.sort) != 'Real':
+                    raise Exception('Quantifying over non-real variables')
+                vars1.append(polya.Var(str(c)))
+            return polya.main.formulas.Exist(set(vars1), translate_formula(fmla.children[0]))
         elif fmla.kind == 'forall':
-        	vars = []
-        	for c in fmla.svars:
-        		if str(c.sort) != 'Real':
-        			raise Exception('Quantifying over non-real variables')
-        		vars.append(polya.Var(str(c)))
-        	return polya.main.formulas.Univ(set(vars), translate_formula(fmla.children[0]))
+            vars1 = []
+            for c in fmla.svars:
+                if str(c.sort) != 'Real':
+                    raise Exception('Quantifying over non-real variables')
+                vars1.append(polya.Var(str(c)))
+            return polya.main.formulas.Univ(set(vars1), translate_formula(fmla.children[0]))
         elif fmla.kind in smt_to_polya_comps:
             return translate_comparison(fmla)
         else:
@@ -135,21 +135,44 @@ def translate_smt_node(cmds):
     def make_assertion(a):
         #print 'make_assertion:', a
         #print a[0]
-        fmla = translate_formula(a[0])
-        print 'in make assertion'
-        print 'fmla:', fmla
-        fmla1 = polya.main.formulas.pnf(fmla)
-        print 'to'
-        print fmla1
-        quit()
+        fmla = polya.main.formulas.pnf(translate_formula(a[0]))
+        make_translated_assertion(fmla)
 
-        # TODO: DNF translation, right now assume this is all ands
-        if any(len(l) != 1 for l in clauses):
-            print clauses
-            raise Exception('Wrong logical structure for Polya')
+    def make_translated_assertion(fmla):
 
-        for l in clauses:
-            e.hyps.append(l[0])
+        if isinstance(fmla, polya.main.formulas.Exist):
+            vars1 = fmla.vars
+            for v in vars1:
+                if v in vars:
+                    nv = polya.Var(v.name+".1")
+                    s = vars1.difference({v}).union({nv})
+                    return make_assertion(
+                        polya.main.formulas.Exist(s, fmla.substitute({v.key: nv}))
+                    )
+            for v in vars1:
+                vars[v.name] = v
+                return make_translated_assertion(fmla.formula)
+
+        elif isinstance(fmla, polya.main.formulas.Univ):
+            if isinstance(fmla.formula, polya.main.formulas.Exist):
+                raise Exception('Cannot interpret universal over existential')
+            elif isinstance(fmla.formula, polya.main.formulas.Univ):
+                return make_translated_assertion(polya.main.formulas.Univ(
+                    fmla.vars.union(fmla.formula.vars), fmla.formula.formula)
+                )
+            else:
+                e.axioms.append(polya.Forall(list(fmla.vars), fmla.formula))
+
+        else:
+            clauses = polya.main.formulas.cnf(fmla)
+
+            # TODO: DNF translation, right now assume this is all ands
+            if any(len(l) != 1 for l in clauses):
+                print clauses
+                raise Exception('Wrong logical structure for Polya')
+
+            for l in clauses:
+                e.hyps.append(l[0])
 
         #print clauses
 

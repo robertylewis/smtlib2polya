@@ -314,7 +314,7 @@ class SMTBVSortNode (SMTSortNode):
     __slots__ = ["bw"]
 
     def __init__ (self, bw):
-        super().__init__(SMTBVSortNode.get_name(bw), 0, KIND_BVSORT)
+        super(SMTBVSortNode, self).__init__(SMTBVSortNode.get_name(bw), 0, KIND_BVSORT)
         self.bw = bw
 
     @staticmethod
@@ -330,7 +330,7 @@ class SMTSortExprNode (SMTNode):
     __slots__ = ["symbols"]
 
     def __init__ (self, sort, symbols = []):
-        super().__init__(KIND_SORTEXPR, sort)
+        super(SMTSortExprNode, self).__init__(KIND_SORTEXPR, sort)
         self.symbols = symbols  # arg symbols
         
     def __str__ (self):
@@ -519,7 +519,7 @@ class SMTVarBindNode (SMTNode):
         assert (isinstance (var, SMTFunNode))
         assert (isinstance (children, list))
         assert (len(children) == 1)
-        super().__init__(KIND_VARB, None, children)
+        super(SMTVarBindNode, self).__init__(KIND_VARB, None, children)
         self.var = var
 
     def __str__ (self):
@@ -893,7 +893,7 @@ class SMTPushCmdNode (SMTCmdNode):
 
     def __init__ (self, nscopes, scope = None):
         assert (nscopes > 0)
-        super().__init__(KIND_PUSH)
+        super(SMTPushCmdNode, self).__init__(KIND_PUSH)
         self.nscopes = nscopes
         self.scope = scope
         # Note: self.scope is the scope directly associated with this push
@@ -911,7 +911,7 @@ class SMTPopCmdNode (SMTCmdNode):
 
     def __init__ (self, nscopes):
         assert (nscopes > 0)
-        super().__init__(KIND_POP)
+        super(SMTPopCmdNode, self).__init__(KIND_POP)
         self.nscopes = nscopes
 
     def __str__ (self):
@@ -1029,7 +1029,7 @@ class SMTNodeSubstList (SMTSubstList):
 
     def subst (self, node, substitution):
         assert (isinstance (node, SMTNode))
-        super().subst(node, substitution)
+        super(SMTNodeSubstList, self).subst(node, substitution)
 
 
 class SMTScopeSubstList (SMTSubstList):
@@ -1037,7 +1037,7 @@ class SMTScopeSubstList (SMTSubstList):
     def subst (self, node, substitution):
         assert (isinstance (node, SMTScopeNode))
         assert (not self.is_subst(node))
-        super().subst(node, substitution)
+        super(SMTScopeSubstList, self).subst(node, substitution)
 
 
 class SMTCmdSubstList (SMTSubstList):
@@ -1045,7 +1045,7 @@ class SMTCmdSubstList (SMTSubstList):
     def subst (self, node, substitution):
         assert (isinstance (node, SMTCmdNode))
         assert (not self.is_subst(node))
-        super().subst(node, substitution)
+        super(SMTCmdSubstList, self).subst(node, substitution)
 
 
 class SMTFormula:

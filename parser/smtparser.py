@@ -311,7 +311,7 @@ class SMTParser(object):
 
     def __decimal (self):
         tokens = SMTParseResult()
-        if not re.match(r'\d+\.\d+', self.la):
+        if not re.match(r'\d+\.\d?', self.la):
             raise SMTParseException ("decimal expected", self)
         tokens.append(self.la)
         self.__scan()

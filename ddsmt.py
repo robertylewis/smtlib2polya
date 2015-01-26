@@ -652,7 +652,12 @@ if __name__ == "__main__":
             #print ('iterating through subst_nodes')
 
             # print ('\n\n\n')
-            topolya.translate_smt_node(s.cmds)
+            try:
+                topolya.translate_smt_node(s.cmds)
+            except Exception as e:
+                print 'Polya has failed, for reason:'
+                print e.message
+                #raise
 
             quit()
 
