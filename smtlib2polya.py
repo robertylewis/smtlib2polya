@@ -112,7 +112,7 @@ def _run (is_golden = False):
         (out, err) = cmd.run_cmd(is_golden)
         return cmd.rcode
     except OSError as e:
-        raise DDSMTException ("{0:s}: {1:s}".format(str(e), g_cmd[0]))
+        raise DDSMTException ("{0:s}: {1:s}".format(str(e), g_args[0]))
 
 
 def _test ():
@@ -571,7 +571,7 @@ def ddsmt_main ():
 
 
 
-def execute_parse(args):
+def execute_parse(args, force_fm=False):
     """
     Assumes first arg to args is python file name.
     """
@@ -658,7 +658,7 @@ def execute_parse(args):
 
             # print ('\n\n\n')
             try:
-                return topolya.translate_smt_node(s.cmds)
+                return topolya.translate_smt_node(s.cmds, force_fm)
             except Exception as e:
                 print 'Polya has failed, for reason:'
                 print e.message
@@ -676,9 +676,9 @@ def execute_parse(args):
         _cleanup()
         sys.exit("[ddsmt] interrupted")
 
-def run_smt_file(filename):
+def run_smt_file(filename, force_fm=False):
     args = ['smtlib2polya.py', filename, 'EMPTY', 'echo']
-    return execute_parse(args)
+    return execute_parse(args, force_fm)
 
 
 if __name__ == "__main__":

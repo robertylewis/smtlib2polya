@@ -1,9 +1,9 @@
 ===============================================================================
- ddSMT
+ smtlib2polya
 ===============================================================================
 
-  This is version 0.1 of smtlib2polya, a translator from the SMT-LIB input format
-  to the Polya prover.
+  This is version 0.1 of smtlib2polya, a translator from the SMT-LIB input
+  format to the Polya prover.
 
   http://github.com/avigad/polya
   http://smt-lib.org/
@@ -19,7 +19,8 @@
  Usage
 ===============================================================================
 
-  smtlib2polya requires Python 2.7 to run.
+  smtlib2polya requires Python 2.7 to run. It has been tested on Kubuntu and
+  OSX; the timeout alarm may cause errors on Windows.
 
   Make sure that Polya is installed, and that the main directory is in the
   Python path. (You should be able to run "import polya" from the Python

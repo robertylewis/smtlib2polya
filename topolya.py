@@ -1,34 +1,17 @@
-    # SETLOGIC  = "set-logic"
-    # SETOPT    = "set-option"
-    # SETINFO   = "set-info"
-    # DECLSORT  = "declare-sort"
-    # DEFSORT   = "define-sort"
-    # DECLFUN   = "declare-fun"
-    # DEFFUN    = "define-fun"
-    # PUSH      = "push"
-    # POP       = "pop"
-    # ASSERT    = "assert"
-    # CHECKSAT  = "check-sat"
-    # GETASSERT = "get-assertions"
-    # GETPROOF  = "get-proof"
-    # GETUCORE  = "get-unsat-core"
-    # GETVALUE  = "get-value"
-    # GETASSIGN = "get-assignment"
-    # GETOPT    = "get-option"
-    # GETINFO   = "get-info"
-    # EXIT      = "exit"
-
 from parser.smtparser import SMTParser as p
 import polya
+import polya.main.terms as terms
+import polya.main.formulas as formulas
 import fractions
 
 
-
-def translate_smt_node(cmds):
+def translate_smt_node(cmds, force_fm=False):
     """
     Returns 1 if the list of commands asks to check-sat an unsatisfiable problem. Returns -1 if
     Polya has tried and failed to determine unsatisfiability. Returns 0 if check-sat is never asked.
     """
+    if force_fm:
+        polya.set_solver_type('fm')
     e = polya.Example(conc=None)
     funs = {}
     vars = {}
@@ -74,8 +57,9 @@ def translate_smt_node(cmds):
 
     def translate_comparison(fmla):
         if fmla.kind in smt_to_polya_comps and len(fmla.children) == 2:
-            return smt_to_polya_comps[fmla.kind](translate_term(fmla.children[0]),
-                                            translate_term(fmla.children[1]))
+            return smt_to_polya_comps[fmla.kind](
+                translate_term(fmla.children[0]), translate_term(fmla.children[1])
+            )
         else:
             raise Exception()
 
@@ -87,7 +71,9 @@ def translate_smt_node(cmds):
         elif fmla.kind == 'or':
             return polya.Or(*[translate_formula(c) for c in fmla.children])
         elif fmla.kind == '=>':
-            return polya.Implies(translate_formula(fmla.children[0]), translate_formula(fmla.children[1]))
+            return polya.Implies(
+                translate_formula(fmla.children[0]), translate_formula(fmla.children[1])
+            )
         elif fmla.kind == 'xor':
             a, b = translate_formula(fmla.children[0]), translate_formula(fmla.children[1])
             return polya.And(polya.Or(a, b), polya.Or(polya.Not(a), polya.Not(b)))
@@ -99,14 +85,14 @@ def translate_smt_node(cmds):
                 if str(c.sort) != 'Real':
                     raise Exception('Quantifying over non-real variables')
                 vars1.append(polya.Var(str(c)))
-            return polya.main.formulas.Exist(set(vars1), translate_formula(fmla.children[0]))
+            return formulas.Exist(set(vars1), translate_formula(fmla.children[0]))
         elif fmla.kind == 'forall':
             vars1 = []
             for c in fmla.svars:
                 if str(c.sort) != 'Real':
                     raise Exception('Quantifying over non-real variables')
                 vars1.append(polya.Var(str(c)))
-            return polya.main.formulas.Univ(set(vars1), translate_formula(fmla.children[0]))
+            return formulas.Univ(set(vars1), translate_formula(fmla.children[0]))
         elif fmla.kind in smt_to_polya_comps:
             return translate_comparison(fmla)
         else:
@@ -126,11 +112,12 @@ def translate_smt_node(cmds):
         else:
             vars[smtfunnode.name] = polya.Var(smtfunnode.name)
 
-    def def_fun(list):
+    def def_fun(l):
+        #todo : finish this
         name, input, output = '', '', ''
         #print 'def_fun:', name, input, output
-        add_fun(list)
-        e.add_axiom() #figure this part out
+        add_fun(l)
+        e.add_axiom()  # figure this part out
 
     def set_comment(c):
         #print 'set_comment:', c
@@ -139,7 +126,7 @@ def translate_smt_node(cmds):
     def make_assertion(a):
         #print 'make_assertion:', a
         #print a[0]
-        fmla = polya.main.formulas.pnf(translate_formula(a[0]))
+        fmla = formulas.pnf(translate_formula(a[0]))
         make_translated_assertion(fmla)
 
     def var_occurs_in_clause(var, list):
@@ -147,52 +134,50 @@ def translate_smt_node(cmds):
         Checks whether var occurs in some term comparison in list.
         """
         for tc in list:
-            tc2 = tc.substitute({var.key: polya.main.terms.Var(var.name + '1')})
+            tc2 = tc.substitute({var.key: terms.Var(var.name + '1')})
             if str(tc2) != str(tc):
                 return True
         return False
 
     def make_translated_assertion(fmla):
 
-        if isinstance(fmla, polya.main.formulas.Exist):
+        if isinstance(fmla, formulas.Exist):
             vars1 = fmla.vars
             for v in vars1:
                 if v in vars:
                     nv = polya.Var(v.name+".1")
                     s = vars1.difference({v}).union({nv})
                     return make_assertion(
-                        polya.main.formulas.Exist(s, fmla.substitute({v.key: nv}))
+                        formulas.Exist(s, fmla.substitute({v.key: nv}))
                     )
             for v in vars1:
                 vars[v.name] = v
                 return make_translated_assertion(fmla.formula)
 
-        elif isinstance(fmla, polya.main.formulas.Univ):
-            if isinstance(fmla.formula, polya.main.formulas.Exist):
+        elif isinstance(fmla, formulas.Univ):
+            if isinstance(fmla.formula, formulas.Exist):
                 raise Exception('Cannot interpret universal over existential')
-            elif isinstance(fmla.formula, polya.main.formulas.Univ):
-                return make_translated_assertion(polya.main.formulas.Univ(
+            elif isinstance(fmla.formula, formulas.Univ):
+                return make_translated_assertion(formulas.Univ(
                     fmla.vars.union(fmla.formula.vars), fmla.formula.formula)
                 )
             else:
-                clauses = polya.main.formulas.cnf(fmla.formula)
+                clauses = formulas.cnf(fmla.formula)
                 ovars = [[v for v in fmla.vars if var_occurs_in_clause(v, cls)] for cls in clauses]
                 for (i, cls) in enumerate(clauses):
                     if len(ovars[i]) > 0:
                         try:
-                            fmla1 = polya.main.formulas.Or(*cls)
+                            fmla1 = formulas.Or(*cls)
                             univ = polya.Forall(ovars[i], fmla1)
-                            a = polya.main.formulas.Axiom(*univ.to_cnf())
+                            a = formulas.Axiom(*univ.to_cnf())
                             e.axioms.append(univ)
-                        except polya.main.formulas.AxiomException:
+                        except formulas.AxiomException:
                             print 'Warning: axiom in the wrong form. {0}'.format(str(fmla))
                     else:
                         e.clauses.append(cls)
 
         else:
-            clauses = polya.main.formulas.cnf(fmla)
-
-            # TODO: DNF translation, right now assume this is all ands
+            clauses = formulas.cnf(fmla)
             if any(len(l) != 1 for l in clauses):
                 print clauses
                 raise Exception('Wrong logical structure for Polya')
@@ -203,31 +188,29 @@ def translate_smt_node(cmds):
         #print clauses
 
     def check_sat(a):
-        polya.set_verbosity(polya.quiet)
+        #polya.set_verbosity(polya.quiet)
         status[0] = 1 if e.test() else -1
 
     map = {
-        p.SETLOGIC: lambda x:None,
-        p.SETOPT: lambda x:None,
+        p.SETLOGIC: lambda x: None,
+        p.SETOPT: lambda x: None,
         p.SETINFO: set_comment,
-        p.DECLSORT: lambda x:None, # do this one
-        p.DECLFUN: lambda smtfunnode:add_fun(smtfunnode[0]),
-        p.DEFFUN: lambda list:def_fun(list),
-        p.POP: lambda x:None,
-        p.PUSH: lambda x:None,
+        p.DECLSORT: lambda x: None,  # do this one
+        p.DECLFUN: lambda smtfunnode: add_fun(smtfunnode[0]),
+        p.DEFFUN: lambda list: def_fun(list),
+        p.POP: lambda x: None,
+        p.PUSH: lambda x: None,
         p.ASSERT: make_assertion,
         p.CHECKSAT: check_sat,
-        p.GETASSERT: lambda x:None,
-        p.GETPROOF: lambda x:None,
-        p.GETUCORE: lambda x:None,
-        p.GETVALUE: lambda x:None,
-        p.GETASSIGN: lambda x:None,
-        p.GETOPT: lambda x:None,
-        p.GETINFO: lambda x:None,
-        p.EXIT: lambda x:quit()
-
-
-        }
+        p.GETASSERT: lambda x: None,
+        p.GETPROOF: lambda x: None,
+        p.GETUCORE: lambda x: None,
+        p.GETVALUE: lambda x: None,
+        p.GETASSIGN: lambda x: None,
+        p.GETOPT: lambda x: None,
+        p.GETINFO: lambda x: None,
+        p.EXIT: lambda x: None
+    }
 
     for c in cmds:
         map[c.kind](c.children)
