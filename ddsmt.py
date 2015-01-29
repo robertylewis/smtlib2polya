@@ -577,7 +577,6 @@ def execute_parse(args):
     """
     global g_args
     try:
-        print 'args:', args
         usage="ddsmt.py [<options>] <infile> <outfile> <cmd> [<cmd options>]"
         aparser = ArgumentParser (usage=usage)
         aparser.add_argument ("infile", 
@@ -663,6 +662,7 @@ def execute_parse(args):
             except Exception as e:
                 print 'Polya has failed, for reason:'
                 print e.message
+                print
                 return 0
                 #raise
 
