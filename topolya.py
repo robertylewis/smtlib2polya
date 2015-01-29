@@ -25,9 +25,14 @@ import fractions
 
 
 def translate_smt_node(cmds):
+    """
+    Returns 1 if the list of commands asks to check-sat an unsatisfiable problem. Returns -1 if
+    Polya has tried and failed to determine unsatisfiability. Returns 0 if check-sat is never asked.
+    """
     e = polya.Example(conc=None)
     funs = {}
     vars = {}
+    status = [0]
 
     smt_to_polya_comps = {
         "<=": lambda x, y: x <= y,
@@ -80,7 +85,6 @@ def translate_smt_node(cmds):
         elif fmla.kind == 'and':
             return polya.And(*[translate_formula(c) for c in fmla.children])
         elif fmla.kind == 'or':
-            print 'or from', [str(c)+" of type " + c.kind for c in fmla.children]
             return polya.Or(*[translate_formula(c) for c in fmla.children])
         elif fmla.kind == '=>':
             return polya.Implies(translate_formula(fmla.children[0]), translate_formula(fmla.children[1]))
@@ -138,6 +142,16 @@ def translate_smt_node(cmds):
         fmla = polya.main.formulas.pnf(translate_formula(a[0]))
         make_translated_assertion(fmla)
 
+    def var_occurs_in_clause(var, list):
+        """
+        Checks whether var occurs in some term comparison in list.
+        """
+        for tc in list:
+            tc2 = tc.substitute({var.key: polya.main.terms.Var(var.name + '1')})
+            if str(tc2) != str(tc):
+                return True
+        return False
+
     def make_translated_assertion(fmla):
 
         if isinstance(fmla, polya.main.formulas.Exist):
@@ -161,7 +175,19 @@ def translate_smt_node(cmds):
                     fmla.vars.union(fmla.formula.vars), fmla.formula.formula)
                 )
             else:
-                e.axioms.append(polya.Forall(list(fmla.vars), fmla.formula))
+                clauses = polya.main.formulas.cnf(fmla.formula)
+                ovars = [[v for v in fmla.vars if var_occurs_in_clause(v, cls)] for cls in clauses]
+                for (i, cls) in enumerate(clauses):
+                    if len(ovars[i]) > 0:
+                        try:
+                            fmla1 = polya.main.formulas.Or(*cls)
+                            univ = polya.Forall(ovars[i], fmla1)
+                            a = polya.main.formulas.Axiom(*univ.to_cnf())
+                            e.axioms.append(univ)
+                        except polya.main.formulas.AxiomException:
+                            print 'Warning: axiom in the wrong form. {0}'.format(str(fmla))
+                    else:
+                        e.clauses.append(cls)
 
         else:
             clauses = polya.main.formulas.cnf(fmla)
@@ -178,7 +204,7 @@ def translate_smt_node(cmds):
 
     def check_sat(a):
         polya.set_verbosity(polya.quiet)
-        e.test()
+        status[0] = 1 if e.test() else -1
 
     map = {
         p.SETLOGIC: lambda x:None,
@@ -205,3 +231,4 @@ def translate_smt_node(cmds):
 
     for c in cmds:
         map[c.kind](c.children)
+    return status[0]

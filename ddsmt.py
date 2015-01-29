@@ -570,8 +570,14 @@ def ddsmt_main ():
         sys.exit ("[ddsmt] unable to reduce input file")
 
 
-if __name__ == "__main__":
+
+def execute_parse(args):
+    """
+    Assumes first arg to args is python file name.
+    """
+    global g_args
     try:
+        print 'args:', args
         usage="ddsmt.py [<options>] <infile> <outfile> <cmd> [<cmd options>]"
         aparser = ArgumentParser (usage=usage)
         aparser.add_argument ("infile", 
@@ -592,21 +598,21 @@ if __name__ == "__main__":
                               help="remove assertions and debug code")
         aparser.add_argument ("--version", action="version", 
                               version=__version__)
-        g_args = aparser.parse_args()
+        g_args = aparser.parse_args(args[1:])
 
         if not g_args.cmd:  # special handling (nargs=REMAINDER)
             raise DDSMTException ("too few arguments")
         
         if g_args.optimize:
-            for i in range(0, len(sys.argv)):
-                if sys.argv[i][0] == '-' and 'o' in sys.argv[i]:
-                    if len(sys.argv[i]) > 2:
-                        sys.argv[i] = sys.argv[i].replace("o", "")
+            for i in range(0, len(args)):
+                if args[i][0] == '-' and 'o' in args[i]:
+                    if len(args[i]) > 2:
+                        args[i] = args[i].replace("o", "")
                         break
                     else:
-                        sys.argv.remove("-o")
+                        args.remove("-o")
                         break
-            os.execl(sys.executable, sys.executable, '-O', *sys.argv)
+            os.execl(sys.executable, sys.executable, '-O', *args)
         else:
             if not os.path.exists(g_args.infile):
                 raise DDSMTException ("given input file does not exist")
@@ -653,36 +659,13 @@ if __name__ == "__main__":
 
             # print ('\n\n\n')
             try:
-                topolya.translate_smt_node(s.cmds)
+                return topolya.translate_smt_node(s.cmds)
             except Exception as e:
                 print 'Polya has failed, for reason:'
                 print e.message
+                return 0
                 #raise
 
-            quit()
-
-            _log (2)
-            _log (2, "parser: done")
-            _log (3, "parser: maxrss: {} MiB".format(
-                resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1000))
-
-            shutil.copyfile(g_args.infile, g_tmpfile)
-            g_args.cmd.append(g_tmpfile)
-            _log (1)
-            _log (1, "starting initial run... ")
-            g_golden = _run(True)
-            _log (1, "golden exit: {0:d}".format(g_golden))
-
-            ddsmt_main ()
-            
-            ofilesize = os.path.getsize(g_args.outfile)
-
-            _log (1)
-            _log (1, "input file size:  {} B (100%)".format(ifilesize))
-            _log (1, "output file size: {} B ({:3.2f}%)".format(
-                ofilesize, ofilesize / ifilesize * 100))
-            _cleanup()
-            sys.exit(0)
     except (DDSMTParseException, DDSMTException) as e:
         _cleanup()
         sys.exit(str(e))
@@ -692,3 +675,12 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         _cleanup()
         sys.exit("[ddsmt] interrupted")
+
+def run_smt_file(filename):
+    args = ['ddsmt.py', filename, 'EMPTY', 'echo']
+    return execute_parse(args)
+
+
+if __name__ == "__main__":
+    l = sys.argv
+    execute_parse(l)
