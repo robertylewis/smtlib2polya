@@ -664,7 +664,6 @@ def execute_parse(args, force_fm=False):
                 print e.message
                 print
                 return 0
-                #raise
 
     except (DDSMTParseException, DDSMTException) as e:
         _cleanup()

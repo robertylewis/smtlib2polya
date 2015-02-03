@@ -12,6 +12,8 @@ def translate_smt_node(cmds, force_fm=False):
     """
     if force_fm:
         polya.set_solver_type('fm')
+    else:
+        polya.set_solver_type('poly')
     e = polya.Example(conc=None)
     funs = {}
     vars = {}
@@ -93,6 +95,13 @@ def translate_smt_node(cmds, force_fm=False):
                     raise Exception('Quantifying over non-real variables')
                 vars1.append(polya.Var(str(c)))
             return formulas.Univ(set(vars1), translate_formula(fmla.children[0]))
+        elif fmla.kind == '<const bool>':
+            if fmla.value == 'true':
+                return terms.one == terms.one
+            elif fmla.value == 'false':
+                return terms.one != terms.one
+            else:
+                raise Exception('dont understand boolean type')
         elif fmla.kind in smt_to_polya_comps:
             return translate_comparison(fmla)
         else:
@@ -188,7 +197,7 @@ def translate_smt_node(cmds, force_fm=False):
         #print clauses
 
     def check_sat(a):
-        #polya.set_verbosity(polya.quiet)
+        polya.set_verbosity(polya.quiet)
         status[0] = 1 if e.test() else -1
 
     map = {
