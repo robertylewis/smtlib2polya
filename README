@@ -33,3 +33,12 @@
   Execute "python batch_translate.py" from the command line. This will run
   Polya in order on all .smt2 files in smt_dir, and print results to
   smt_dir/results.out.
+  
+  The executable 'polya' takes one argument, a path to an .smt2 file. It prints
+  1 if unsat, -1 if Polya fails, and 0 if there is an error. It is generated
+  and tested only on Kubuntu 14.04.
+  
+  To generate a binary of your own: install [url=https://github.com/pyinstaller/pyinstaller/wiki]PyInstaller[/url],
+  and from the root directory run
+  ``pyinstaller -n polya -F single_translate.py``
+  The binary will appear in ./dist/polya/ 
