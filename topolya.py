@@ -1,8 +1,9 @@
-from parser.smtparser import SMTParser as p
+from parser2.smtparser import SMTParser as p
 import polya
 import polya.main.terms as terms
 import polya.main.formulas as formulas
 import fractions
+import copy
 
 
 def translate_smt_node(cmds, force_fm=False):
@@ -14,7 +15,10 @@ def translate_smt_node(cmds, force_fm=False):
         polya.set_solver_type('fm')
     else:
         polya.set_solver_type('poly')
-    e = polya.Example(conc=None)
+    #e = polya.Example(conc=None)  # split_depth=2
+    exlist = [polya.Example(conc=None)]
+    #exs = [polya.Example(conc=None)]
+
     funs = {}
     vars = {}
     status = [0]
@@ -130,7 +134,8 @@ def translate_smt_node(cmds, force_fm=False):
 
     def set_comment(c):
         #print 'set_comment:', c
-        e.comment = (e.comment + c if e.comment else c)
+        for e in exlist:
+            e.comment = (e.comment + c if e.comment else c)
 
     def make_assertion(a):
         #print 'make_assertion:', a
@@ -179,26 +184,42 @@ def translate_smt_node(cmds, force_fm=False):
                             fmla1 = formulas.Or(*cls)
                             univ = polya.Forall(ovars[i], fmla1)
                             a = formulas.Axiom(*univ.to_cnf())
-                            e.axioms.append(univ)
+                            for e in exlist:
+                                e.axioms.append(univ)
                         except formulas.AxiomException:
                             print 'Warning: axiom in the wrong form. {0}'.format(str(fmla))
                     else:
-                        e.clauses.append(cls)
+                        for e in exlist:
+                            e.clauses.append(cls)
 
         else:
-            clauses = formulas.cnf(fmla)
-            if any(len(l) != 1 for l in clauses):
-                print clauses
-                raise Exception('Wrong logical structure for Polya')
-
-            for l in clauses:
-                e.hyps.append(l[0])
+            conjuncts = formulas.dnf(fmla) # or of ands
+            nexmps = []
+            for e in exlist:
+                for l in conjuncts:
+                    e2 = copy.deepcopy(e)
+                    for c in l:
+                        e2.hyps.append(c)
+                    nexmps.append(e2)
+            while len(exlist) > 0:
+                exlist.pop(0)
+            exlist.extend(nexmps)
+            # clauses = formulas.cnf(fmla)
+            # if any(len(l) != 1 for l in clauses):
+            #     print clauses
+            #     raise Exception('Wrong logical structure for Polya')
+            #
+            # for l in clauses:
+            #     e.hyps.append(l[0])
 
         #print clauses
 
     def check_sat(a):
         polya.set_verbosity(polya.quiet)
-        status[0] = 1 if e.test() else -1
+        print '-----'
+        print 'Checking sat. disjuncts: ', len(exlist)
+        status[0] = 1 if all(e.test() for e in exlist) else -1
+        print '-----'
 
     map = {
         p.SETLOGIC: lambda x: None,

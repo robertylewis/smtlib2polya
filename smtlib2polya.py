@@ -30,7 +30,7 @@ import topolya
 from argparse import ArgumentParser, REMAINDER
 from subprocess import Popen, PIPE
 from threading import Thread
-from parser.ddsmtparser import DDSMTParser, DDSMTParseException
+from parser2.ddsmtparser import DDSMTParser, DDSMTParseException
 
 
 __version__ = "0.98-beta"
