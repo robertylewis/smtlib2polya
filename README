@@ -38,7 +38,11 @@
   1 if unsat, -1 if Polya fails, and 0 if there is an error. It is generated
   and tested only on Kubuntu 14.04.
   
-  To generate a binary of your own: install [url=https://github.com/pyinstaller/pyinstaller/wiki]PyInstaller[/url],
+  To generate a binary of your own: install PyInstaller:
+  
+    https://github.com/pyinstaller/pyinstaller/wiki
   and from the root directory run
-  ``pyinstaller -n polya -F single_translate.py``
+  
+    pyinstaller -n polya -F single_translate.py
+  
   The binary will appear in ./dist/polya/ 
