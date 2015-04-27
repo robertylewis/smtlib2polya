@@ -138,7 +138,7 @@ def translate_smt_node(cmds, force_fm=False):
             e.comment = (e.comment + c if e.comment else c)
 
     def make_assertion(a):
-        #print 'make_assertion:', a
+        #print 'make_assertion:', str(a[0])
         #print a[0]
         fmla = formulas.pnf(translate_formula(a[0]))
         make_translated_assertion(fmla)
@@ -154,7 +154,6 @@ def translate_smt_node(cmds, force_fm=False):
         return False
 
     def make_translated_assertion(fmla):
-
         if isinstance(fmla, formulas.Exist):
             vars1 = fmla.vars
             for v in vars1:
@@ -219,6 +218,7 @@ def translate_smt_node(cmds, force_fm=False):
         print '-----'
         print 'Checking sat. disjuncts: ', len(exlist)
         status[0] = 1 if all(e.test() for e in exlist) else -1
+        print 'RESULT: 1 (UNSAT)' if status[0] == 1 else 'RESULT: -1 (POSSIBLY SAT)'
         print '-----'
 
     map = {

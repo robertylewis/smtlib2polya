@@ -39,6 +39,10 @@ def batch_test(file):
         sys.stdout = stdout
         print r
 
+def interrupt_handler(signal, frame):
+    sys.exit(1)
+
+signal.signal(signal.SIGINT, interrupt_handler)
 
 #batch_test()
 if __name__ == '__main__':
