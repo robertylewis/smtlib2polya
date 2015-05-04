@@ -139,6 +139,8 @@ class SMTParser(object):
     GETINFO   = "get-info"
     EXIT      = "exit"
 
+    SIMPLIFY  = "simplify"
+
     def __init__ (self):
         self.filename = ""
         self.tokens = []
@@ -805,6 +807,9 @@ class SMTParser(object):
             tokens.append(self.info_flag.parse_action(self.__info_flag()))
         elif self.la == SMTParser.EXIT:
             self.__scan()
+        elif self.la == SMTParser.SIMPLIFY:
+            self.__scan()
+            tokens.append(self.term.parse_action(self.__term()))
         else:
             raise SMTParseException (
                     "unknown command '{}'".format(self.la), self)

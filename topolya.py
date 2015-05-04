@@ -221,6 +221,9 @@ def translate_smt_node(cmds, force_fm=False):
         print 'RESULT: 1 (UNSAT)' if status[0] == 1 else 'RESULT: -1 (POSSIBLY SAT)'
         print '-----'
 
+    def simplify(a):
+        status[0] = translate_term(a[0])
+
     map = {
         p.SETLOGIC: lambda x: None,
         p.SETOPT: lambda x: None,
@@ -239,7 +242,9 @@ def translate_smt_node(cmds, force_fm=False):
         p.GETASSIGN: lambda x: None,
         p.GETOPT: lambda x: None,
         p.GETINFO: lambda x: None,
-        p.EXIT: lambda x: None
+        p.EXIT: lambda x: None,
+        p.SIMPLIFY: lambda x: simplify(x)
+
     }
 
     for c in cmds:
