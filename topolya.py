@@ -4,9 +4,10 @@ import polya.main.terms as terms
 import polya.main.formulas as formulas
 import fractions
 import copy
+import numbers
 
 
-def translate_smt_node(cmds, force_fm=False):
+def translate_smt_node(cmds, force_fm=False, force_smt=False):
     """
     Returns 1 if the list of commands asks to check-sat an unsatisfiable problem. Returns -1 if
     Polya has tried and failed to determine unsatisfiability. Returns 0 if check-sat is never asked.
@@ -210,8 +211,55 @@ def translate_smt_node(cmds, force_fm=False):
             #
             # for l in clauses:
             #     e.hyps.append(l[0])
-
         #print clauses
+
+    def polya_to_smt(pterm):
+        """
+        Translates a Polya term to an SMT term
+        """
+        if isinstance(pterm, int):
+            return str(pterm)
+        elif isinstance(pterm, float):
+            return polya_to_smt(fractions.Fraction(pterm))
+        elif isinstance(pterm, fractions.Fraction):
+            if pterm.denominator == 1:
+                return pterm.numerator
+            else:
+                return "(/ {0} {1})".format(pterm.numerator, pterm.denominator)
+        elif isinstance(pterm, polya.main.terms.STerm):
+            return polya_to_smt(pterm.term) if pterm.coeff == 1 else "(* {0} {1})".format(
+                polya_to_smt(pterm.coeff), polya_to_smt(pterm.term)
+            )
+        elif isinstance(pterm, polya.main.terms.Var):
+            return str(pterm.name)
+        elif isinstance(pterm, polya.main.terms.AddTerm):
+            if len(pterm.args) == 0:
+                return 'ADD_ERROR'
+            elif len(pterm.args) == 1:
+                return polya_to_smt(pterm.args[0])
+            else:
+                return "(+ {0} {1})".format(polya_to_smt(pterm.args[0]),
+                                            polya_to_smt(polya.main.terms.AddTerm(pterm.args[1:])))
+        elif isinstance(pterm, polya.main.terms.MulPair):
+            if pterm.exponent == 1:
+                return polya_to_smt(pterm.term)
+            elif pterm.exponent > 0:
+                return "(* {0} {1})".format(polya_to_smt(pterm.term),
+                                            polya_to_smt(pterm.term**(pterm.exponent - 1)))
+            elif pterm.exponent < 0:
+                return "(/ 1 {0})".format(polya_to_smt(pterm.term**(-pterm.exponent)))
+        elif isinstance(pterm, polya.main.terms.MulTerm):
+            if len(pterm.args) == 0:
+                return 'MUL_ERROR'
+            elif len(pterm.args) == 1:
+                return polya_to_smt(pterm.args[0])
+            else:
+                return "(* {0} {1})".format(polya_to_smt(pterm.args[0]),
+                                            polya_to_smt(polya.main.terms.MulTerm(pterm.args[1:])))
+        elif isinstance(pterm, polya.main.terms.FuncTerm):
+            return "({0} {1})".format(pterm.func.name, " ".join(polya_to_smt(a) for a in pterm.args))
+        elif isinstance(pterm, polya.main.terms.One):
+            return '1'
 
     def check_sat(a):
         polya.set_verbosity(polya.quiet)
@@ -222,7 +270,14 @@ def translate_smt_node(cmds, force_fm=False):
         print '-----'
 
     def simplify(a):
-        status[0] = translate_term(a[0])
+        print '-----'
+        print 'Simplifying term:', a
+        if not force_smt:
+            status[0] = translate_term(a[0]).canonize()
+        else:
+            status[0] = polya_to_smt(translate_term(a[0]).canonize())
+        print status[0]
+        print '-----'
 
     map = {
         p.SETLOGIC: lambda x: None,

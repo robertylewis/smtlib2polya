@@ -571,7 +571,7 @@ def ddsmt_main ():
 
 
 
-def execute_parse(args, force_fm=False):
+def execute_parse(args, force_fm=False, force_smt=False):
     """
     Assumes first arg to args is python file name.
     """
@@ -658,7 +658,7 @@ def execute_parse(args, force_fm=False):
 
             # print ('\n\n\n')
             try:
-                return topolya.translate_smt_node(s.cmds, force_fm)
+                return topolya.translate_smt_node(s.cmds, force_fm, force_smt)
             except Exception as e:
                 print 'Polya has failed, for reason:'
                 print e.message
@@ -675,9 +675,9 @@ def execute_parse(args, force_fm=False):
         _cleanup()
         sys.exit("[ddsmt] interrupted")
 
-def run_smt_file(filename, force_fm=False):
+def run_smt_file(filename, force_fm=False, force_smt=False):
     args = ['smtlib2polya.py', filename, 'EMPTY', 'echo']
-    return execute_parse(args, force_fm)
+    return execute_parse(args, force_fm, force_smt)
 
 
 if __name__ == "__main__":
