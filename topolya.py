@@ -4,6 +4,7 @@ import polya.main.terms as terms
 import polya.main.formulas as formulas
 import fractions
 import copy
+import parser2.ddsmtparser as ddsmtparser
 import numbers
 
 
@@ -52,12 +53,21 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
             else:
                 return fractions.Fraction(str(term))
         elif term.kind == '<var or fun symbol>':
-            if term.name in funs:
-                return funs[term.name](*[translate_term(c) for c in term.children])
-            elif term.name in vars:
-                return vars[term.name]
-            else:
-                raise Exception()
+            if isinstance(term, ddsmtparser.SMTFunNode):
+                if term.name in funs:
+                    return funs[term.name](*[translate_term(c) for c in term.children])
+                elif term.name in vars:
+                    return vars[term.name]
+                else:
+                    raise Exception()
+            elif isinstance(term, ddsmtparser.SMTFunAppNode):
+                #print term.children, [(c.name, c.children )for c in term.children]
+                if term.fun.name in funs:
+                    return funs[term.fun.name](*[translate_term(c) for c in term.children])
+                elif term.fun.name in vars:
+                    return vars[term.fun.name]
+                else:
+                    raise Exception()
         else:
             print 'didnt find kind:', term, term.kind
             return polya.Var('c')
@@ -271,11 +281,16 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
 
     def simplify(a):
         print '-----'
-        print 'Simplifying term:', a
         if not force_smt:
-            status[0] = translate_term(a[0]).canonize()
+            t = translate_term(a[0])
+            if isinstance(t, numbers.Rational):
+                t = polya.main.terms.STerm(t, polya.main.terms.One())
+            status[0] = t.canonize()
         else:
-            status[0] = polya_to_smt(translate_term(a[0]).canonize())
+            t = translate_term(a[0])
+            if isinstance(t, numbers.Rational):
+                t = polya.main.terms.STerm(t, polya.main.terms.One())
+            status[0] = polya_to_smt(t.canonize())
         print status[0]
         print '-----'
 

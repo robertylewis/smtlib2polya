@@ -1,6 +1,6 @@
 smt_dir = '../keymaera-smt2/'
 output = smt_dir + 'results.out'
-timeout = 10  # in seconds
+timeout = 3  # in seconds
 force_fm = False  # If true, will force Polya to use Fourier Motzkin methods. Otherwise, will use
                   # polytope methods if available.
 

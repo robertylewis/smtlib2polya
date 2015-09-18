@@ -28,7 +28,7 @@ def alert(num, frame):
 
 def batch_test(file, time, forcefm, forcesmt):
     results = {-1: 0, 0: 0, 1: 0}
-    sys.stdout = open(devnull, 'w')
+    #sys.stdout = open(devnull, 'w')
     timer = default_timer()
     r = 0
     try:
