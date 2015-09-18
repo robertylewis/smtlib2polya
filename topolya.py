@@ -141,7 +141,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
         name, input, output = '', '', ''
         #print 'def_fun:', name, input, output
         add_fun(l)
-        e.add_axiom()  # figure this part out
+        #e.add_axiom()  # figure this part out
 
     def set_comment(c):
         #print 'set_comment:', c
