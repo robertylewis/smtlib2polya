@@ -18,7 +18,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
     else:
         polya.set_solver_type('poly')
     #e = polya.Example(conc=None)  # split_depth=2
-    exlist = [polya.Example(conc=None)]
+    exlist = [polya.Example(conc=None, split_depth=1)]
     #exs = [polya.Example(conc=None)]
 
     funs = {}
@@ -45,7 +45,9 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
     }
 
     def translate_term(term):
+        print ' translate_term:', term
         if term.kind in smt_to_polya_ops:
+            print 'for', term, ', returning', smt_to_polya_ops[term.kind]([translate_term(c) for c in term.children]), '</', term
             return smt_to_polya_ops[term.kind]([translate_term(c) for c in term.children])
         elif term.kind == '<const dec>' or term.kind == '<const num>':
             if str(int(float(str(term)))) == str(float(str(term))):
@@ -54,9 +56,11 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
                 return fractions.Fraction(str(term))
         elif term.kind == '<var or fun symbol>':
             if isinstance(term, ddsmtparser.SMTFunNode):
+                print '  var:', term
                 if term.name in funs:
                     return funs[term.name](*[translate_term(c) for c in term.children])
                 elif term.name in vars:
+                    print '   in_vars'
                     return vars[term.name]
                 else:
                     raise Exception()
@@ -95,7 +99,10 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
             a, b = translate_formula(fmla.children[0]), translate_formula(fmla.children[1])
             return polya.And(polya.Or(a, b), polya.Or(polya.Not(a), polya.Not(b)))
         elif fmla.kind == 'ite':
-            raise Exception('dont understand boolean ite')
+            h = translate_formula(fmla.children[0])
+            a, b = translate_formula(fmla.children[1]), translate_formula(fmla.children[2])
+            return polya.And(polya.Implies(h, a), polya.Implies(polya.Not(h), b))
+            #raise Exception('dont understand boolean ite')
         elif fmla.kind == 'exists':
             vars1 = []
             for c in fmla.svars:
@@ -137,6 +144,10 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
             vars[smtfunnode.name] = polya.Var(smtfunnode.name)
 
     def def_fun(l):
+        print 'deffun:', l
+        print l[0]
+        print l[1][0]
+        print l[2]
         #todo : finish this
         name, input, output = '', '', ''
         #print 'def_fun:', name, input, output
@@ -170,6 +181,8 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
             for v in vars1:
                 if v in vars:
                     nv = polya.Var(v.name+".1")
+                    while nv in vars:
+                        nv = polya.Var(nv.name+".1")
                     s = vars1.difference({v}).union({nv})
                     return make_assertion(
                         formulas.Exist(s, fmla.substitute({v.key: nv}))
@@ -281,6 +294,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
 
     def simplify(a):
         print '-----'
+        print 'simplify: ', a[0]
         if not force_smt:
             t = translate_term(a[0])
             if isinstance(t, numbers.Rational):
