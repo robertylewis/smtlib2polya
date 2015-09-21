@@ -18,7 +18,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
     else:
         polya.set_solver_type('poly')
     #e = polya.Example(conc=None)  # split_depth=2
-    exlist = [polya.Example(conc=None, split_depth=1)]
+    exlist = [polya.Example(conc=None)]
     #exs = [polya.Example(conc=None)]
 
     funs = {}
@@ -45,9 +45,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
     }
 
     def translate_term(term):
-        print ' translate_term:', term
         if term.kind in smt_to_polya_ops:
-            print 'for', term, ', returning', smt_to_polya_ops[term.kind]([translate_term(c) for c in term.children]), '</', term
             return smt_to_polya_ops[term.kind]([translate_term(c) for c in term.children])
         elif term.kind == '<const dec>' or term.kind == '<const num>':
             if str(int(float(str(term)))) == str(float(str(term))):
@@ -56,11 +54,9 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
                 return fractions.Fraction(str(term))
         elif term.kind == '<var or fun symbol>':
             if isinstance(term, ddsmtparser.SMTFunNode):
-                print '  var:', term
                 if term.name in funs:
                     return funs[term.name](*[translate_term(c) for c in term.children])
                 elif term.name in vars:
-                    print '   in_vars'
                     return vars[term.name]
                 else:
                     raise Exception()
@@ -144,15 +140,16 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
             vars[smtfunnode.name] = polya.Var(smtfunnode.name)
 
     def def_fun(l):
-        print 'deffun:', l
-        print l[0]
-        print l[1][0]
-        print l[2]
+        #print 'deffun:', l
+        #print l[0]
+        #print l[1][0]
+        #print l[2]
         #todo : finish this
         name, input, output = '', '', ''
         #print 'def_fun:', name, input, output
         add_fun(l)
         #e.add_axiom()  # figure this part out
+        raise Exception("def_fun not supported")
 
     def set_comment(c):
         #print 'set_comment:', c
