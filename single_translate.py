@@ -28,7 +28,7 @@ def alert(num, frame):
 
 def batch_test(file, time, forcefm, forcesmt):
     results = {-1: 0, 0: 0, 1: 0}
-    #sys.stdout = open(devnull, 'w')
+    sys.stdout = open(devnull, 'w')
     timer = default_timer()
     r = 0
     try:
@@ -54,5 +54,7 @@ if __name__ == '__main__':
     parser.add_argument('-f', action="store_true", help="force FM")
     parser.add_argument('-s', action="store_true",  help="force SMT output from simplify")
     args = parser.parse_args()
-    print args.file
+    #print args.file
+    #if args.file == 'STDIN':
+    #else:
     batch_test(args.file, (args.t if args.t else timeout), args.f, args.s)

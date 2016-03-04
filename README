@@ -36,7 +36,15 @@
   
   The executable 'polya' takes one argument, a path to an .smt2 file. It prints
   1 if unsat, -1 if Polya fails, and 0 if there is an error. It is generated
-  and tested only on Kubuntu 14.04.
+  and tested only on Kubuntu 14.04. single_translate.py has identical behavior.
+  
+  Usage:
+    ./polya file_name.smt2
+    python single_translate.py file_name.smt2
+    
+  These files can also take input from stdin:
+    cat file_name.smt2 | ./polya STDIN
+    cat file_name.smt2 | python single_translate.py STDIN
   
   To generate a binary of your own: install PyInstaller:
   

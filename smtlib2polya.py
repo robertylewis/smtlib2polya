@@ -26,6 +26,7 @@ import sys
 import shutil
 import time
 import topolya
+import tempfile
 
 from argparse import ArgumentParser, REMAINDER
 from subprocess import Popen, PIPE
@@ -613,9 +614,11 @@ def execute_parse(args, force_fm=False, force_smt=False):
                         break
             os.execl(sys.executable, sys.executable, '-O', *args)
         else:
-            if not os.path.exists(g_args.infile):
+            if g_args.infile == "STDIN":
+                pass
+            elif not os.path.exists(g_args.infile):
                 raise DDSMTException ("given input file does not exist")
-            if os.path.isdir(g_args.infile):
+            elif os.path.isdir(g_args.infile):
                 raise DDSMTException ("given input file is a directory")
             if os.path.exists(g_args.outfile):
                 raise DDSMTException ("given output file does already exist")
@@ -624,11 +627,22 @@ def execute_parse(args, force_fm=False, force_smt=False):
             _log (1, "output file: '{}'".format(g_args.outfile))
             _log (1, "command:     '{}'".format(
                 " ".join([str(c) for c in g_args.cmd])))
+            if g_args.infile == "STDIN":
+                tfname = "/tmp/ddsmttmp-" + str(os.getpid()) + ".txt"
+                tf = open(tfname, 'w')
+                for line in sys.stdin:
+                    tf.write(line)
+                tf.close()
+                infile = tfname
+            else:
+                infile = g_args.infile
 
-            ifilesize = os.path.getsize(g_args.infile)
-
+            ifilesize = os.path.getsize(infile)
             parser = DDSMTParser()
-            g_smtformula = parser.parse(g_args.infile)
+            g_smtformula = parser.parse(infile)
+            if g_args.infile == "STDIN":
+                os.remove(tfname)
+
         #  self.logic = "none"
         #self.scopes = SMTScopeNode ()
         #self.cur_scope = self.scopes
