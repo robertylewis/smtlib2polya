@@ -31,6 +31,9 @@ class SMTParseException (Exception):
         (self.line, self.col) = parser.get_pos()
 
     def __str__ (self):
+        if self.filename == 'STDIN':
+            return "[smtparser] {} (location not available using stdin): {}".format(
+                self.filename, self.msg)
         return "[smtparser] {}:{}:{}: {}".format(
                 self.filename, self.line, self.col, self.msg)
 
@@ -183,6 +186,8 @@ class SMTParser(object):
         return self.script.parse_action(self.__script())
                 
     def get_pos (self):
+        if self.filename == 'STDIN':
+            return (0, 0)
         line = 1
         col = 0
         with open (self.filename, 'r') as infile:
@@ -235,7 +240,11 @@ class SMTParser(object):
         self.la = self.tokens[self.pos - 1]
 
     def __tokenize (self):
-        with open (self.filename, 'r') as infile:
+        #with open (self.filename, 'r') as infile:
+            if (self.filename == "STDIN"):
+                infile = sys.stdin
+            else:
+                infile = open(self.filename, 'r')
             tokens = []
             # Note: separate re.subs are way faster than combined subs that
             #       require more testing, e.g.

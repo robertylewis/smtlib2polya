@@ -627,21 +627,21 @@ def execute_parse(args, force_fm=False, force_smt=False):
             _log (1, "output file: '{}'".format(g_args.outfile))
             _log (1, "command:     '{}'".format(
                 " ".join([str(c) for c in g_args.cmd])))
-            if g_args.infile == "STDIN":
-                tfname = "/tmp/ddsmttmp-" + str(os.getpid()) + ".txt"
-                tf = open(tfname, 'w')
-                for line in sys.stdin:
-                    tf.write(line)
-                tf.close()
-                infile = tfname
-            else:
-                infile = g_args.infile
+            # if g_args.infile == "STDIN":
+            #     tfname = "/tmp/ddsmttmp-" + str(os.getpid()) + ".txt"
+            #     tf = open(tfname, 'w')
+            #     for line in sys.stdin:
+            #         tf.write(line)
+            #     tf.close()
+            #     infile = tfname
+            # else:
+            infile = g_args.infile
 
-            ifilesize = os.path.getsize(infile)
+            # ifilesize = os.path.getsize(infile)
             parser = DDSMTParser()
             g_smtformula = parser.parse(infile)
-            if g_args.infile == "STDIN":
-                os.remove(tfname)
+            #if g_args.infile == "STDIN":
+            #    os.remove(tfname)
 
         #  self.logic = "none"
         #self.scopes = SMTScopeNode ()

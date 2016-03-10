@@ -1879,7 +1879,7 @@ class DDSMTParser (SMTParser):
             assert (len(t) == 3)
             sort = sf.find_sort (t[1])
             if sort and sort.nparams != t[2].value:
-               (line, col) = self.get_pos()
+               #(line, col) = self.get_pos()
                raise DDSMTParseException (
                         "previous declaration of sort '{}' with '{}' "\
                         "was here".format(t[1], t[2].value),
@@ -1897,7 +1897,7 @@ class DDSMTParser (SMTParser):
             assert (len(t) == 4)
             fun = sf.find_fun(t[1], t[3], find_nested=False)
             if fun:
-                (line, col) = self.get_pos()
+                #(line, col) = self.get_pos()
                 raise DDSMTParseException (
                          "previous declaration of function '{!s}'"\
                          "was here".format(fun),
