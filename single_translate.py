@@ -26,11 +26,14 @@ def alert(num, frame):
 #sys.stdout = open(output, 'w')
 
 
-def batch_test(file, time, forcefm, forcesmt):
+def batch_test(file, time, forcefm, forcesmt, z3out=False):
     results = {-1: 0, 0: 0, 1: 0}
     sys.stdout = open(devnull, 'w')
     timer = default_timer()
     r = 0
+    # f = open(file, "r")
+    # print f.read()
+    # f.close()
     try:
         signal.signal(signal.SIGALRM, alert)
         signal.alarm(timeout)
@@ -39,7 +42,15 @@ def batch_test(file, time, forcefm, forcesmt):
         r = 0
     finally:
         sys.stdout = stdout
-        print r
+        if z3out:
+            if r == 1:
+                print "unsat"
+            elif r == 0:
+                print "Fail"
+            elif r == -1:
+                print "unknown"
+        else:
+            print r
 
 def interrupt_handler(signal, frame):
     sys.exit(1)
@@ -53,8 +64,10 @@ if __name__ == '__main__':
     parser.add_argument('-t', type=int,  help="timeout (in sec)")
     parser.add_argument('-f', action="store_true", help="force FM")
     parser.add_argument('-s', action="store_true",  help="force SMT output from simplify")
+    parser.add_argument('-version', action="store_true", help="version")
+    parser.add_argument('-z', action="store_true", help="z3-style output")
     args = parser.parse_args()
-    #print args.file
-    #if args.file == 'STDIN':
-    #else:
-    batch_test(args.file, (args.t if args.t else timeout), args.f, args.s)
+    if args.version:
+        print '0.1'
+    else:
+        batch_test(args.file, (args.t if args.t else timeout), args.f, args.s, args.z)

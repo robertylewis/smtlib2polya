@@ -59,7 +59,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
                 elif term.name in vars:
                     return vars[term.name]
                 else:
-                    raise Exception()
+                    raise Exception("unknown term name: " + str(term.name))
             elif isinstance(term, ddsmtparser.SMTFunAppNode):
                 #print term.children, [(c.name, c.children )for c in term.children]
                 if term.fun.name in funs:
@@ -67,7 +67,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
                 elif term.fun.name in vars:
                     return vars[term.fun.name]
                 else:
-                    raise Exception()
+                    raise Exception("unknown term fun name: " + str(term.fun.name))
         else:
             print 'didnt find kind:', term, term.kind
             return polya.Var('c')
@@ -78,7 +78,7 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
                 translate_term(fmla.children[0]), translate_term(fmla.children[1])
             )
         else:
-            raise Exception()
+            raise Exception("error in translate_comparison: " + fmla.kind + " " + len(fmla.children))
 
     def translate_formula(fmla):
         if fmla.kind == 'not':
@@ -101,10 +101,14 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
             #raise Exception('dont understand boolean ite')
         elif fmla.kind == 'exists':
             vars1 = []
+            # vars2 = []
             for c in fmla.svars:
                 if str(c.sort) != 'Real':
                     raise Exception('Quantifying over non-real variables')
                 vars1.append(polya.Var(str(c)))
+                if c.name not in vars:
+                    # vars2.append(c.name)
+                    vars[c.name] = polya.Var(str(c))
             return formulas.Exist(set(vars1), translate_formula(fmla.children[0]))
         elif fmla.kind == 'forall':
             vars1 = []
@@ -112,6 +116,8 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
                 if str(c.sort) != 'Real':
                     raise Exception('Quantifying over non-real variables')
                 vars1.append(polya.Var(str(c)))
+                if str(c) not in vars:
+                    vars[str(c)] = polya.Var(str(c))
             return formulas.Univ(set(vars1), translate_formula(fmla.children[0]))
         elif fmla.kind == '<const bool>':
             if fmla.value == 'true':
@@ -128,13 +134,13 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
     def add_fun(smtfunnode):
         #print 'add_fun:', smtfunnode.name, smtfunnode.sorts, smtfunnode.sort
         if str(smtfunnode.sort) != 'Real':
-            print 'Error: wrong sort'
-            quit()
+            print 'Error: wrong sort', smtfunnode.sort
+            exit()
         arity = len(smtfunnode.sorts)
         if arity > 0:
             if any(str(s) != 'Real' for s in smtfunnode.sorts):
                 print 'Error: wrong sort'
-                quit()
+                exit()
             funs[smtfunnode.name] = polya.Func(smtfunnode.name, arity)
         else:
             vars[smtfunnode.name] = polya.Var(smtfunnode.name)

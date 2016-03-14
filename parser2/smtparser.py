@@ -241,57 +241,57 @@ class SMTParser(object):
 
     def __tokenize (self):
         #with open (self.filename, 'r') as infile:
-            if (self.filename == "STDIN"):
-                infile = sys.stdin
+        if (self.filename == "STDIN"):
+            infile = sys.stdin
+        else:
+            infile = open(self.filename, 'r')
+        tokens = []
+        # Note: separate re.subs are way faster than combined subs that
+        #       require more testing, e.g.
+        #           re.sub(r'(?<!\\)(?P<m>["\)])',
+        #                  " {} ".format(r'\g<m>'), instring)
+        instring = re.sub(
+                r'set-info :source\s*\|.*?\|',
+                lambda x: re.sub(
+                    SMTParser.COMMENT, SMTParser.COMMA, x.group(0)),
+                infile.read(),
+                flags=re.DOTALL)
+        instring = re.sub (
+                r'".*?"',
+                lambda x: re.sub(
+                    SMTParser.COMMENT, SMTParser.COMMA, x.group(0)),
+                instring,
+                flags=re.DOTALL)
+        instring = re.sub(r';[^\n]*\n', ' ' , instring)
+        instring = re.sub(r'\((?!_ )', ' ( ', instring)
+
+        pidx = instring.find(SMTParser.PIPE)
+        qidx = instring.find(SMTParser.QUOTE)
+        c = SMTParser.PIPE if qidx == -1 or (pidx >= 0 and pidx < qidx) \
+                           else SMTParser.QUOTE
+        instring = instring.partition(c)
+        while instring[0]:
+            tokens.extend(
+                    re.sub(r'(?<!\\)\)', ' ) ', instring[0]).split())
+            part = instring[2].partition(c)
+            if c == SMTParser.PIPE:
+                tokens.append("{}{}{}".format(
+                    instring[1], part[0], part[1]))
             else:
-                infile = open(self.filename, 'r')
-            tokens = []
-            # Note: separate re.subs are way faster than combined subs that
-            #       require more testing, e.g.
-            #           re.sub(r'(?<!\\)(?P<m>["\)])', 
-            #                  " {} ".format(r'\g<m>'), instring)
-            instring = re.sub(
-                    r'set-info :source\s*\|.*?\|',
-                    lambda x: re.sub(
-                        SMTParser.COMMENT, SMTParser.COMMA, x.group(0)),
-                    infile.read(),
-                    flags=re.DOTALL)
-            instring = re.sub (
-                    r'".*?"', 
-                    lambda x: re.sub(
-                        SMTParser.COMMENT, SMTParser.COMMA, x.group(0)),
-                    instring,
-                    flags=re.DOTALL)
-            instring = re.sub(r';[^\n]*\n', ' ' , instring)
-            instring = re.sub(r'\((?!_ )', ' ( ', instring)
-            
-            pidx = instring.find(SMTParser.PIPE)
-            qidx = instring.find(SMTParser.QUOTE)
-            c = SMTParser.PIPE if qidx == -1 or (pidx >= 0 and pidx < qidx) \
-                               else SMTParser.QUOTE
-            instring = instring.partition(c)
-            while instring[0]:
-                tokens.extend(
-                        re.sub(r'(?<!\\)\)', ' ) ', instring[0]).split())
-                part = instring[2].partition(c)
-                if c == SMTParser.PIPE:
-                    tokens.append("{}{}{}".format(
-                        instring[1], part[0], part[1]))
-                else:
-                    strings = []
+                strings = []
+                strings.append(part[0])
+                while part[0] and part[0][-1] == '\\':
+                    part = part[2].partition(c)
                     strings.append(part[0])
-                    while part[0] and part[0][-1] == '\\':
-                        part = part[2].partition(c)
-                        strings.append(part[0])
-                    tokens.append("\"{}\"".format(
-                        "\"".join([s for s in strings])))
-                pidx = part[2].find(SMTParser.PIPE)
-                qidx = part[2].find(SMTParser.QUOTE)
-                c = SMTParser.PIPE if qidx == -1 or (pidx >= 0 and pidx < qidx)\
-                                   else SMTParser.QUOTE
-                instring = part[2].partition(c)
-            tokens.extend(re.sub(r'(?<!\\)\)', ' ) ', instring[2]).split())
-            return tokens
+                tokens.append("\"{}\"".format(
+                    "\"".join([s for s in strings])))
+            pidx = part[2].find(SMTParser.PIPE)
+            qidx = part[2].find(SMTParser.QUOTE)
+            c = SMTParser.PIPE if qidx == -1 or (pidx >= 0 and pidx < qidx)\
+                               else SMTParser.QUOTE
+            instring = part[2].partition(c)
+        tokens.extend(re.sub(r'(?<!\\)\)', ' ) ', instring[2]).split())
+        return tokens
 
     def __check_lpar (self, msg = "'(' expected"):
         if self.la != SMTParser.LPAR:
