@@ -41,7 +41,8 @@ def translate_smt_node(cmds, force_fm=False, force_smt=False):
         "/": lambda l: l[0]/l[1],
         "*": lambda l: reduce(lambda x, y: x*y, l),
         "neg": lambda l: -l[0],
-        "-": lambda l: l[0] - l[1]
+        "-": lambda l: l[0] - l[1],
+        "^": lambda l: l[0] ** l[1]
     }
 
     def translate_term(term):

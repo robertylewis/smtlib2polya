@@ -69,6 +69,7 @@ KIND_MUL       = "*"
 KIND_NEG       = "neg"
 KIND_SUB       = "-"
 KIND_RDIV      = "/"
+KIND_POW       = "^"
 
 KIND_ISI       = "is_int"
 KIND_TOI       = "to_int"
@@ -153,7 +154,8 @@ g_fun_kinds   = \
       KIND_ITE,    KIND_LE,     KIND_LT,     KIND_MOD,    KIND_MUL,
       KIND_NEG,    KIND_NOT,    KIND_OR,     KIND_RDIV,   KIND_REP,
       KIND_ROL,    KIND_ROR,    KIND_SELECT, KIND_SEXT,   KIND_STORE,
-      KIND_SUB,    KIND_TOI,    KIND_TOR,    KIND_XOR,    KIND_ZEXT]
+      KIND_SUB,    KIND_TOI,    KIND_TOR,    KIND_XOR,    KIND_ZEXT,
+      KIND_POW]
 
 g_cmd_kinds   = \
     [ KIND_ASSERT,   KIND_CHECKSAT, KIND_DECLFUN,   KIND_DEFFUN, 
@@ -1392,7 +1394,7 @@ class SMTFormula:
                         "".format(fun))
         # args Int or Real check
         elif kind in (KIND_ADD, KIND_GE, KIND_GT, KIND_LE, KIND_LT, KIND_MUL, 
-                      KIND_NEG, KIND_SUB):
+                      KIND_NEG, KIND_SUB, KIND_POW):
             c0 = children[0]
             if c0.sort not in (sortint, sortreal):
                 raise DDSMTParseCheckException (
@@ -1496,7 +1498,7 @@ class SMTFormula:
         elif kind == KIND_BVCOMP:
             return self.bvSortNode(1)
         # sort defined by children
-        elif kind in (KIND_ADD, KIND_MUL, KIND_NEG, KIND_SUB):
+        elif kind in (KIND_ADD, KIND_MUL, KIND_NEG, KIND_SUB, KIND_POW):
             if True in [c.sort == self.sortNode("Real") for c in children]:
                 return self.sortNode("Real")
             return children[0].sort
